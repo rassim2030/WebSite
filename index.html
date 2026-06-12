@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>REAL MAFIA – Free Fire Panel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous"/>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-color: #060709;
+            --surface-color: #0c0d12;
+            --surface-accent: #12141c;
+            --primary-color: #0076e6; /* تم تغييرها من الأخضر إلى الأزرق */
+            --primary-glow: rgba(0, 118, 230, 0.25); /* تم تعديل وهج اللون إلى الأزرق */
+            --text-color: #94a3b8;
+            --white: #ffffff;
+            --discord-color: #5865F2;
+            --border-color: rgba(255, 255, 255, 0.05);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--white);
+            overflow-x: hidden;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-color);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--surface-accent);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-color);
+        }
+
+        /* Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 6%;
+            background: rgba(6, 7, 9, 0.85);
+            backdrop-filter: blur(12px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .nav-brand {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--white);
+            letter-spacing: 1.5px;
+        }
+
+        .nav-brand span {
+            color: var(--primary-color);
+            text-shadow: 0 0 15px var(--primary-glow);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-link-text {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link-text:hover {
+            color: var(--primary-color);
+        }
+
+        .lang-switcher {
+            display: flex;
+            gap: 0.2rem;
+            background: rgba(255, 255, 255, 0.03);
+            padding: 0.3rem;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        .lang-btn {
+            background: none;
+            border: none;
+            color: var(--text-color);
+            padding: 0.3rem 0.7rem;
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-weight: 700;
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+
+        .lang-btn.active {
+            background: var(--primary-color);
+            color: var(--bg-color);
+            box-shadow: 0 0 12px var(--primary-glow);
+        }
+
+        .nav-btn {
+            background: var(--primary-color);
+            color: var(--bg-color);
+            border: none;
+            padding: 0.6rem 1.4rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn:hover {
+            box-shadow: 0 0 20px var(--primary-glow);
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            padding: 15rem 6% 10rem 6%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(to bottom, rgba(6, 7, 9, 0.4) 0%, rgba(6, 7, 9, 1) 100%), 
+                        url('garena-free-fire-nulla-poster.png') no-repeat center center / cover;
+        }
+
+        .hero-badge {
+            background: rgba(0, 118, 230, 0.06); /* تم تعديل اللون هنا أيضاً للأزرق */
+            border: 1px solid rgba(0, 118, 230, 0.2);
+            color: var(--primary-color);
+            padding: 0.6rem 1.4rem;
+            border-radius: 100px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .hero-title {
+            font-size: 4.5rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            letter-spacing: -1px;
+        }
+
+        .hero-title .line1 {
+            color: var(--white);
+            display: block;
+        }
+
+        .hero-title .line2 {
+            color: var(--primary-color);
+        }
+
+        .hero-desc {
+            color: var(--text-color);
+            max-width: 680px;
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
+            line-height: 1.7;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 6rem;
+        }
+
+        .btn-primary-ff {
+            background: var(--primary-color);
+            color: var(--bg-color);
+            padding: 1.1rem 2.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 800;
+            font-size: 1.05rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            box-shadow: 0 4px 25px var(--primary-glow);
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary-ff:hover {
+            transform: scale(1.03);
+        }
+
+        .btn-outline-ff {
+            background: rgba(255, 255, 255, 0.02);
+            color: var(--white);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1.1rem 2.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.05rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            transition: all 0.3s ease;
+        }
+
+        /* Stats Blocks */
+        .hero-stats {
+            display: flex;
+            gap: 5rem;
+            background: rgba(18, 20, 28, 0.4);
+            padding: 2rem 5rem;
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+        }
+
+        .hstat {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .hstat-num {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary-color);
+        }
+
+        .hstat-label {
+            font-size: 0.8rem;
+            color: var(--text-color);
+            margin-top: 0.5rem;
+            text-transform: uppercase;
+        }
+
+        /* Sections General styling */
+        section {
+            padding: 7rem 8%;
+        }
+
+        .section-label {
+            color: var(--primary-color);
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            font-weight: 800;
+            letter-spacing: 3px;
+            margin-bottom: 0.6rem;
+        }
+
+        .section-title {
+            font-size: 2.8rem;
+            margin-bottom: 4rem;
+            font-weight: 800;
+        }
+
+        /* Feature Row Section */
+        .features-row-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            flex-wrap: wrap;
+        }
+
+        .features-left-image {
+            position: relative;
+            flex: 1;
+            min-width: 320px;
+            max-width: 500px;
+        }
+
+        .features-left-image img {
+            width: 100%;
+            border-radius: 16px;
+            border: 1px solid rgba(0, 118, 230, 0.3); /* تم تعديل الحدود للأزرق */
+            box-shadow: 0 0 35px rgba(0, 118, 230, 0.15); /* تم تعديل الظل للأزرق */
+        }
+
+        .image-badge-top {
+            position: absolute;
+            bottom: -15px;
+            right: -15px;
+            background: var(--primary-color);
+            color: var(--bg-color);
+            font-weight: 800;
+            font-size: 1.4rem;
+            padding: 0.8rem 1.2rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px var(--primary-glow);
+            text-align: center;
+        }
+
+        .image-badge-top span {
+            display: block;
+            font-size: 0.65rem;
+            text-transform: uppercase;
+        }
+
+        .features-right-content {
+            flex: 1;
+            min-width: 320px;
+        }
+
+        .features-right-content .side-title {
+            font-size: 2.8rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
+
+        .features-right-content .side-title span {
+            color: var(--primary-color);
+        }
+
+        .features-right-content .side-desc {
+            color: var(--text-color);
+            margin-bottom: 2.5rem;
+            font-size: 1.05rem;
+        }
+
+        .feature-item-box {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            background: transparent;
+            border: 1px solid #161e22; /* تعديل طفيف ليتماشى مع الخلفية الزرقاء بدلاً من الخضراء */
+            padding: 1.3rem;
+            border-radius: 12px;
+            margin-bottom: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .feature-item-box:hover {
+            border-color: var(--primary-color);
+            background: rgba(0, 118, 230, 0.02); /* تم التعديل للأزرق */
+        }
+
+        .feature-box-icon {
+            color: var(--primary-color);
+            font-size: 1.4rem;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            background: rgba(0, 118, 230, 0.05); /* تم التعديل للأزرق */
+            border: 1px solid rgba(0, 118, 230, 0.2); /* تم التعديل للأزرق */
+        }
+
+        .feature-box-text h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.2rem;
+        }
+
+        .feature-box-text p {
+            color: var(--text-color);
+            font-size: 0.9rem;
+        }
+
+        /* Advantages Cards */
+        .advantages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .adv-card {
+            background: transparent;
+            border: 1px solid #1c1e24;
+            border-radius: 16px;
+            padding: 3rem 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .adv-card:hover {
+            border-color: var(--primary-color);
+            background: rgba(0, 118, 230, 0.01); /* تم التعديل للأزرق */
+        }
+
+        .adv-icon-wrap {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .adv-card h3 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 0.8rem;
+        }
+
+        .adv-card p {
+            color: var(--text-color);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Downloads Card */
+        .dl-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .dl-card {
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 2.5rem;
+        }
+
+        .dl-card-title {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding-bottom: 1.2rem;
+        }
+
+        .dl-icon {
+            color: var(--primary-color);
+        }
+
+        .dl-link {
+            display: flex;
+            align-items: center;
+            gap: 0.9rem;
+            color: var(--text-color);
+            text-decoration: none;
+            padding: 1rem 1.4rem;
+            background: rgba(6, 7, 9, 0.5);
+            margin-bottom: 1rem;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            border: 1px solid transparent;
+            transition: all 0.25s ease;
+        }
+
+        .dl-link:hover {
+            border-color: var(--primary-color);
+            color: var(--white);
+        }
+
+        /* Owner Card */
+        .owners-row {
+            display: flex;
+            justify-content: center;
+            margin-top: 1rem;
+        }
+
+        .owner-card {
+            background: var(--surface-color);
+            border-radius: 24px;
+            overflow: hidden;
+            width: 440px;
+            border: 1px solid var(--border-color);
+        }
+
+        .owner-card-banner {
+            background: linear-gradient(90deg, var(--discord-color), var(--primary-color));
+            padding: 0.8rem;
+            text-align: center;
+            font-size: 0.85rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            color: white;
+        }
+
+        .owner-card-body {
+            padding: 2.5rem;
+        }
+
+        .owner-header {
+            display: flex;
+            align-items: center;
+            gap: 1.4rem;
+            margin-bottom: 2rem;
+        }
+
+        .owner-avatar {
+            width: 75px;
+            height: 75px;
+            border-radius: 50%;
+            border: 3px solid var(--primary-color);
+            object-fit: cover;
+        }
+
+        .owner-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--white);
+        }
+
+        .owner-role {
+            color: var(--primary-color);
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .owner-discord-row {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            background: rgba(6, 7, 9, 0.6);
+            padding: 1.1rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+        }
+
+        .owner-discord-btn {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.8rem;
+            background: var(--discord-color);
+            color: white;
+            text-decoration: none;
+            padding: 1.1rem;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 1.05rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 4rem 2rem;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-color);
+            background: #040507;
+        }
+
+        footer .brand {
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+
+        @media (max-width: 768px) {
+            .hero-title { font-size: 3rem; }
+            .hero-stats { flex-direction: column; gap: 2rem; padding: 2rem; }
+            .features-row-container { gap: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="nav-logo"><span class="nav-brand">REAL <span>MAFIA</span></span></div>
+        <div class="nav-links">
+            <div class="lang-switcher">
+                <button type="button" class="lang-btn" onclick="switchLanguage('es', event)">ES</button>
+                <button type="button" class="lang-btn" onclick="switchLanguage('en', event)">EN</button>
+                <button type="button" class="lang-btn active" onclick="switchLanguage('fr', event)">FR</button>
+            </div>
+            <a href="#why-us" class="nav-link-text" id="nav-why">Fonctionnalités</a>
+            <a href="#downloads" class="nav-link-text" id="nav-downloads">Téléchargements</a>
+            <a href="#owner" class="nav-link-text" id="nav-contact">Contact</a>
+            <a class="nav-btn" href="#" id="nav-access"><i class="fas fa-sign-in-alt"></i> Connexion</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-badge" id="hero-badge"><i class="fas fa-fire"></i> Free Fire · Le Meilleur Mod Menu</div>
+        <h1 class="hero-title">
+            <span class="line1">REAL MAFIA</span>
+            <span class="line2" id="hero-auth">Authentification</span>
+        </h1>
+        <p class="hero-desc" id="hero-desc">Accédez au meilleur Mod Menu pour Free Fire avec une licence vérifiée. Système d'authentification privé, sécurisé et toujours à jour.</p>
+        
+        <div class="hero-actions">
+            <a class="btn-primary-ff" href="#" id="btn-panel"><i class="fas fa-sign-in-alt"></i> Accéder au Panel</a>
+            <a href="#why-us" class="btn-outline-ff" id="btn-more"><i class="fas fa-chevron-down"></i> Voir plus</a>
+        </div>
+
+        <div class="hero-stats">
+            <div class="hstat">
+                <div class="hstat-num">63</div>
+                <div class="hstat-label" id="stat-active">Joueurs Actifs</div>
+            </div>
+            <div class="hstat">
+                <div class="hstat-num">141</div>
+                <div class="hstat-label" id="stat-registered">Utilisateurs Inscrits</div>
+            </div>
+            <div class="hstat">
+                <div class="hstat-num">ON</div>
+                <div class="hstat-label" id="stat-status">État du Panel</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="why-us">
+        <div class="features-row-container">
+            <div class="features-left-image">
+                <img src="free-fire-imagen.png" alt="Free Fire Mod Menu Presentation"/>
+                <div class="image-badge-top">#1<span>PREMIUM</span></div>
+            </div>
+            
+            <div class="features-right-content">
+                <div class="section-label" id="lbl-why">POURQUOI SE NOUS CHOISIR ?</div>
+                <h2 class="side-title" id="title-secure">Le Mod Menu le plus <span>sécurisé</span> pour Free Fire</h2>
+                <p class="side-desc" id="desc-secure">Cheats vérifiés avec système de licences privé et support continu.</p>
+                
+                <div class="feature-item-box">
+                    <div class="feature-box-icon"><i class="fas fa-shield-alt"></i></div>
+                    <div class="feature-box-text">
+                        <h3 id="f1-title">Authentification HWID</h3>
+                        <p id="f1-desc">Chaque licence est liée à votre appareil. Aucun accès non autorisé ni session dupliquée.</p>
+                    </div>
+                </div>
+
+                <div class="feature-item-box">
+                    <div class="feature-box-icon"><i class="fas fa-key"></i></div>
+                    <div class="feature-box-text">
+                        <h3 id="f2-title">Licences par Abonnement</h3>
+                        <p id="f2-desc">Clés journalières, hebdomadaires ou mensuelles. Activez votre Mod Menu instantanément.</p>
+                    </div>
+                </div>
+
+                <div class="feature-item-box">
+                    <div class="feature-box-icon"><i class="fas fa-sync-alt"></i></div>
+                    <div class="feature-box-text">
+                        <h3 id="f3-title">Toujours à Jour</h3>
+                        <p id="f3-desc">Compatible avec la Autism version de Free Fire. Mises à jour automatiques sans perdre votre licence.</p>
+                    </div>
+                </div>
+
+                <div class="feature-item-box">
+                    <div class="feature-box-icon"><i class="fas fa-network-wired"></i></div>
+                    <div class="feature-box-text">
+                        <h3 id="f4-title">Réseau de Distribution</h3>
+                        <p id="f4-desc">Système de revendeurs pour vendre des licences avec votre propre structure de prix.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="advantages">
+        <div class="section-label" style="text-align: center;" id="lbl-adv">AVANTAGES</div>
+        <h2 class="section-title" style="text-align: center;" id="title-why-mafia">Pourquoi <span>REAL MAFIA</span> ?</h2>
+        
+        <div class="advantages-grid">
+            <div class="adv-card">
+                <div class="adv-icon-wrap"><i class="fas fa-bolt"></i></div>
+                <h3 id="adv1-title">Activation Immédiate</h3>
+                <p id="adv1-desc">Entrez votre clé et accédez au Mod Menu en quelques secondes. Sans étapes compliquées.</p>
+            </div>
+            <div class="adv-card">
+                <div class="adv-icon-wrap"><i class="fas fa-headset"></i></div>
+                <h3 id="adv2-title">Support 24/7</h3>
+                <p id="adv2-desc">Équipe disponible sur Discord pour répondre aux questions et renouveler les licences.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="downloads">
+        <div class="section-label" style="text-align: center;" id="lbl-resources">Ressources</div>
+        <h2 class="section-title" style="text-align: center;" id="title-downloads">Téléchargements et <span>Outils</span></h2>
+        
+        <div class="dl-grid">
+            <div class="dl-card">
+                <div class="dl-card-title"><div class="dl-icon"><i class="fas fa-mobile-alt"></i></div><span>Free Fire</span></div>
+                <a href="#" target="_blank" class="dl-link"><i class="fas fa-external-link-alt" style="font-size:0.75rem"></i> Free Fire Normal (OB53)</a>
+                <a href="https://mega.nz/file/7YkSDa7J#cohiAwRmW0FXFCzMSKN5Ou5UTlHvV0D08bYTUWyA9PI" target="_blank" class="dl-link"><i class="fas fa-external-link-alt" style="font-size:0.75rem"></i> Free Fire India</a>
+                <a href="https://www.mediafire.com/file/8v08ukt05dxzluv/Free_Fire_BETA.xapk/file" target="_blank" class="dl-link"><i class="fas fa-external-link-alt" style="font-size:0.75rem"></i> Free Fire (Beta/Tela)</a>
+            </div>
+            <div class="dl-card">
+                <div class="dl-card-title"><div class="dl-icon"><i class="fas fa-download"></i></div><span>Loader</span></div>
+                <a href="#" target="_blank" class="dl-link"><i class="fas fa-external-link-alt" style="font-size:0.75rem"></i> Loader REAL MAFIA</a>
+            </div>
+            <div class="dl-card">
+                <div class="dl-card-title"><div class="dl-icon"><i class="fas fa-toolbox"></i></div><span id="card-tools">Outils</span></div>
+                <a href="https://www.mediafire.com/file/p84g2sp0as7a9uz/Bluestack_Real_Mafia.rar/file" target="_blank" class="dl-link"><i class="fas fa-external-link-alt" style="font-size:0.75rem"></i> Bluestack 5.22 P64</a>
+                <a href="https://www.mediafire.com/file/7yolkn46d1vagc9/PANEL_DRIVERS.rar/file" target="_blank" class="dl-link"><i class="fas fa-external-link-alt" style="font-size:0.75rem"></i> Requirements C++</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="owner" style="background: linear-gradient(to bottom, transparent, rgba(18, 20, 28, 0.4));">
+        <div class="section-label" style="text-align: center;" id="lbl-contact">Contact</div>
+        <h2 class="section-title" style="text-align: center;" id="title-owner">Notre <span>Owner</span></h2>
+        
+        <div class="owners-row">
+            <div class="owner-card">
+                <div class="owner-card-banner">REAL MAFIA · OWNER</div>
+                <div class="owner-card-body">
+                    <div class="owner-header">
+                        <img src="My Photo Discord.PNG" alt="Owner" class="owner-avatar"/>
+                        <div>
+                            <div class="owner-name">REAL MAFIA 👑</div>
+                            <div class="owner-role" id="owner-role">PROPRIÉTAIRE</div>
+                        </div>
+                    </div>
+                    <div class="owner-discord-row">
+                        <i class="fab fa-discord" style="color:var(--discord-color); font-size: 1.2rem;"></i>
+                        <span style="color:var(--text-color); margin-left: 5px;">Discord:</span>
+                        <span style="color:#fff; font-weight:600; margin-left: auto; background: rgba(255,255,255,0.05); padding: 0.2rem 0.6rem; border-radius: 6px;">@rassim.nyak1</span>
+                    </div>
+                    <a href="https://discord.gg/gwpcC6YF6B" class="owner-discord-btn" target="_blank" id="btn-discord"><i class="fab fa-discord"></i> Écrire sur Discord</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p id="footer-text">© 2026 <span class="brand">REAL MAFIA</span> · Free Fire Panel. Tous droits réservés.</p>
+    </footer>
+
+    <script>
+        const translations = {
+            es: {
+                navWhy: "Features",
+                navDownloads: "Descargas",
+                navContact: "Contacto",
+                navAccess: '<i class="fas fa-sign-in-alt"></i> Acceder',
+                heroBadge: '<i class="fas fa-fire"></i> Free Fire · El Mejor Mod Menu',
+                heroAuth: "Authentication",
+                heroDesc: "Accede al mejor Mod Menu para Free Fire con licencia verificada. Sistema de autenticación privado, seguro y siempre actualizado.",
+                btnPanel: '<i class="fas fa-sign-in-alt"></i> Acceder al Panel',
+                btnMore: '<i class="fas fa-chevron-down"></i> Ver más',
+                statActive: "Jugadores Activos",
+                statRegistered: "Usuarios Registrados",
+                statStatus: "Estado del Panel",
+                lblWhy: "¿Por qué elegirnos?",
+                titleSecure: "El Mod Menu más <span>seguro</span> para Free Fire",
+                descSecure: "Cheats verificados con sistema de licencias privado y soporte continuo para garantizar la máxima seguridad en tu cuenta.",
+                f1Title: "Autenticación HWID",
+                f1Desc: "Cada licencia está vinculada a tu dispositivo. Sin accesos no autorizados ni sesiones duplicadas.",
+                f2Title: "Licencias por Suscripción",
+                f2Desc: "Claves diarias, semanales o mensuales. Activa tu Mod Menu instantáneamente sin demoras.",
+                f3Title: "Siempre Actualizado",
+                f3Desc: "Compatible con la última versión de Free Fire. Actualizaciones automáticas sin perder tu licencia.",
+                f4Title: "Red de Distribución",
+                f4Desc: "Sistema de revendedores para vender licencias con tu propia estructura de precios.",
+                lblAdv: "VENTAJAS",
+                titleWhyMafia: "¿Por qué <span>REAL MAFIA</span>?",
+                adv1Title: "Activación Inmediata",
+                adv1Desc: "Introduce tu clave y accede al Mod Menu en pocos segundos. Sin pasos complicados ni esperas.",
+                adv2Title: "Soporte 24/7",
+                adv2Desc: "Equipo disponible en Discord para responder a tus preguntas, resolver problemas y renovar licencias.",
+                lblResources: "Recursos",
+                titleDownloads: "Descargas y <span>Herramientas</span>",
+                cardTools: "Herramientas",
+                lblContact: "Contacto",
+                titleOwner: "Nuestro <span>Owner</span>",
+                ownerRole: "OWNER",
+                btnDiscord: '<i class="fab fa-discord"></i> Escribir por Discord',
+                footerText: '© 2026 <span class="brand">REAL MAFIA</span> · Free Fire Panel. Todos los derechos reservados.'
+            },
+            en: {
+                navWhy: "Features",
+                navDownloads: "Downloads",
+                navContact: "Contact",
+                navAccess: '<i class="fas fa-sign-in-alt"></i> Login',
+                heroBadge: '<i class="fas fa-fire"></i> Free Fire · The Best Mod Menu',
+                heroAuth: "Authentication",
+                heroDesc: "Access the best Mod Menu for Free Fire with a verified license. Private, secure, and always updated authentication system.",
+                btnPanel: '<i class="fas fa-sign-in-alt"></i> Access Panel',
+                btnMore: '<i class="fas fa-chevron-down"></i> See more',
+                statActive: "Active Players",
+                statRegistered: "Registered Users",
+                statStatus: "Panel Status",
+                lblWhy: "Why Choose Us?",
+                titleSecure: "The most <span>secure</span> Mod Menu for Free Fire",
+                descSecure: "Verified cheats with a private licensing system and continuous support to ensure maximum security for your account.",
+                f1Title: "HWID Authentication",
+                f1Desc: "Each license is linked to your device. No unauthorized access or duplicate sessions.",
+                f2Title: "Subscription Licenses",
+                f2Desc: "Daily, weekly, or monthly keys. Activate your Mod Menu instantly without delays.",
+                f3Title: "Always Updated",
+                f3Desc: "Compatible with the latest version of Free Fire. Automatic updates without losing your license.",
+                f4Title: "Distribution Network",
+                f4Desc: "Reseller system to sell licenses with your own pricing structure.",
+                lblAdv: "ADVANTAGES",
+                titleWhyMafia: "Why <span>REAL MAFIA</span>?",
+                adv1Title: "Immediate Activation",
+                adv1Desc: "Enter your key and access the Mod Menu in a few seconds. No complicated steps or waiting.",
+                adv2Title: "24/7 Support",
+                adv2Desc: "Team available on Discord to answer your questions, fix issues, and renew licenses.",
+                lblResources: "Resources",
+                titleDownloads: "Downloads & <span>Tools</span>",
+                cardTools: "Tools",
+                lblContact: "Contact",
+                titleOwner: "Our <span>Owner</span>",
+                ownerRole: "OWNER",
+                btnDiscord: '<i class="fab fa-discord"></i> Message on Discord',
+                footerText: '© 2026 <span class="brand">REAL MAFIA</span> · Free Fire Panel. All rights reserved.'
+            },
+            fr: {
+                navWhy: "Fonctionnalités",
+                navDownloads: "Téléchargements",
+                navContact: "Contact",
+                navAccess: '<i class="fas fa-sign-in-alt"></i> Connexion',
+                heroBadge: '<i class="fas fa-fire"></i> Free Fire · Le Meilleur Mod Menu',
+                heroAuth: "Authentification",
+                heroDesc: "Accédez au meilleur Mod Menu pour Free Fire avec une licence vérifiée. Système d'authentification privé, sécurisé et toujours à jour.",
+                btnPanel: '<i class="fas fa-sign-in-alt"></i> Accéder au Panel',
+                btnMore: '<i class="fas fa-chevron-down"></i> Voir plus',
+                statActive: "Joueurs Actifs",
+                statRegistered: "Utilisateurs Inscrits",
+                statStatus: "État du Panel",
+                lblWhy: "POURQUOI SE NOUS CHOISIR ?",
+                titleSecure: "Le Mod Menu le plus <span>sécurisé</span> pour Free Fire",
+                descSecure: "Cheats vérifiés avec système de licences privé et support continu.",
+                f1Title: "Authentification HWID",
+                f1Desc: "Chaque licence est liée à votre appareil. Aucun accès non autorisé ni session dupliquée.",
+                f2Title: "Licences par Abonnement",
+                f2Desc: "Clés journalières, hebdomadaires ou mensuelles. Activez votre Mod Menu instantanément.",
+                f3Title: "Toujours à Jour",
+                f3Desc: "Compatible avec la dernière version de Free Fire. Mises à jour automatiques sans perdre votre licence.",
+                f4Title: "Réseau de Distribution",
+                f4Desc: "Système de revendeurs pour vendre des licences avec votre propre structure de prix.",
+                lblAdv: "AVANTAGES",
+                titleWhyMafia: "Pourquoi <span>REAL MAFIA</span> ?",
+                adv1Title: "Activation Immédiate",
+                adv1Desc: "Entrez votre clé et accédez au Mod Menu en quelques secondes. Sans étapes compliquées.",
+                adv2Title: "Support 24/7",
+                adv2Desc: "Équipe disponible sur Discord pour répondre aux questions et renouveler les licences.",
+                lblResources: "Ressources",
+                titleDownloads: "Téléchargements et <span>Outils</span>",
+                cardTools: "Outils",
+                lblContact: "Contact",
+                titleOwner: "Notre <span>Owner</span>",
+                ownerRole: "PROPRIÉTAIRE",
+                btnDiscord: '<i class="fab fa-discord"></i> Écrire sur Discord',
+                footerText: '© 2026 <span class="brand">REAL MAFIA</span> · Free Fire Panel. Tous droits réservés.'
+            }
+        };
+
+        function switchLanguage(lang, e) {
+            document.getElementById('nav-why').innerHTML = translations[lang].navWhy;
+            document.getElementById('nav-downloads').innerHTML = translations[lang].navDownloads;
+            document.getElementById('nav-contact').innerHTML = translations[lang].navContact;
+            document.getElementById('nav-access').innerHTML = translations[lang].navAccess;
+            document.getElementById('hero-badge').innerHTML = translations[lang].heroBadge;
+            document.getElementById('hero-auth').innerHTML = translations[lang].heroAuth;
+            document.getElementById('hero-desc').innerHTML = translations[lang].heroDesc;
+            document.getElementById('btn-panel').innerHTML = translations[lang].btnPanel;
+            document.getElementById('btn-more').innerHTML = translations[lang].btnMore;
+            document.getElementById('stat-active').innerHTML = translations[lang].statActive;
+            document.getElementById('stat-registered').innerHTML = translations[lang].statRegistered;
+            document.getElementById('stat-status').innerHTML = translations[lang].statStatus;
+            
+            document.getElementById('lbl-why').innerHTML = translations[lang].lblWhy;
+            document.getElementById('title-secure').innerHTML = translations[lang].titleSecure;
+            document.getElementById('desc-secure').innerHTML = translations[lang].descSecure;
+            document.getElementById('f1-title').innerHTML = translations[lang].f1Title;
+            document.getElementById('f1-desc').innerHTML = translations[lang].f1Desc;
+            document.getElementById('f2-title').innerHTML = translations[lang].f2Title;
+            document.getElementById('f2-desc').innerHTML = translations[lang].f2Desc;
+            document.getElementById('f3-title').innerHTML = translations[lang].f3Title;
+            document.getElementById('f3-desc').innerHTML = translations[lang].f3Desc;
+            document.getElementById('f4-title').innerHTML = translations[lang].f4Title;
+            document.getElementById('f4-desc').innerHTML = translations[lang].f4Desc;
+            document.getElementById('lbl-adv').innerHTML = translations[lang].lblAdv;
+            document.getElementById('title-why-mafia').innerHTML = translations[lang].titleWhyMafia;
+            document.getElementById('adv1-title').innerHTML = translations[lang].adv1Title;
+            document.getElementById('adv1-desc').innerHTML = translations[lang].adv1Desc;
+            document.getElementById('adv2-title').innerHTML = translations[lang].adv2Title;
+            document.getElementById('adv2-desc').innerHTML = translations[lang].adv2Desc;
+
+            document.getElementById('lbl-resources').innerHTML = translations[lang].lblResources;
+            document.getElementById('title-downloads').innerHTML = translations[lang].titleDownloads;
+            document.getElementById('card-tools').innerHTML = translations[lang].cardTools;
+            document.getElementById('lbl-contact').innerHTML = translations[lang].lblContact;
+            document.getElementById('title-owner').innerHTML = translations[lang].titleOwner;
+            document.getElementById('owner-role').innerHTML = translations[lang].ownerRole;
+            document.getElementById('btn-discord').innerHTML = translations[lang].btnDiscord;
+            document.getElementById('footer-text').innerHTML = translations[lang].footerText;
+
+            const buttons = document.querySelectorAll('.lang-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            
+            if (e && e.target) {
+                e.target.classList.add('active');
+            }
+            
+            document.documentElement.lang = lang;
+        }
+    </script>
+</body>
+</html>
